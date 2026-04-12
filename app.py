@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import csv
 import os
+import traceback
 from datetime import datetime
 from database import init_db, get_connection
 
@@ -15,6 +16,7 @@ def read_foods_csv():
     foods = []
 
     if not os.path.exists(FOODS_FILE):
+        print(f"FOODS FILE NOT FOUND: {FOODS_FILE}")
         return foods
 
     with open(FOODS_FILE, mode="r", encoding="utf-8-sig") as file:
@@ -130,6 +132,7 @@ def save_profile_to_db(person_name, date_of_birth, recall_date, meals_input):
 
             food = foods_by_name.get(dish_name)
             if not food:
+                print(f"FOOD NOT FOUND FOR DISH: {dish_name}")
                 continue
 
             built_item = build_food_entry(food, quantity)
@@ -260,43 +263,60 @@ def home():
 
 @app.route("/api/foods", methods=["GET"])
 def get_foods():
-    return jsonify(read_foods_csv())
+    try:
+        return jsonify(read_foods_csv())
+    except Exception as e:
+        print("ERROR IN /api/foods")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/api/profiles", methods=["GET"])
 def get_profiles():
-    return jsonify(get_all_profiles_from_db())
+    try:
+        return jsonify(get_all_profiles_from_db())
+    except Exception as e:
+        print("ERROR IN GET /api/profiles")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/api/profiles", methods=["POST"])
 def save_profile():
-    data = request.get_json()
+    try:
+        data = request.get_json()
+        print("SAVE REQUEST DATA:", data)
 
-    person_name = data.get("person_name", "").strip()
-    date_of_birth = data.get("date_of_birth", "").strip()
-    meals_input = data.get("meals", {})
-    recall_date = data.get("date", "").strip()
+        person_name = data.get("person_name", "").strip()
+        date_of_birth = data.get("date_of_birth", "").strip()
+        meals_input = data.get("meals", {})
+        recall_date = data.get("date", "").strip()
 
-    if not person_name:
-        return jsonify({"error": "Person name is required"}), 400
+        if not person_name:
+            return jsonify({"error": "Person name is required"}), 400
 
-    if not date_of_birth:
-        return jsonify({"error": "Date of birth is required"}), 400
+        if not date_of_birth:
+            return jsonify({"error": "Date of birth is required"}), 400
 
-    if not recall_date:
-        recall_date = datetime.now().strftime("%Y-%m-%d")
+        if not recall_date:
+            recall_date = datetime.now().strftime("%Y-%m-%d")
 
-    profile = save_profile_to_db(
-        person_name=person_name,
-        date_of_birth=date_of_birth,
-        recall_date=recall_date,
-        meals_input=meals_input
-    )
+        profile = save_profile_to_db(
+            person_name=person_name,
+            date_of_birth=date_of_birth,
+            recall_date=recall_date,
+            meals_input=meals_input
+        )
 
-    return jsonify({
-        "message": "Profile saved successfully",
-        "profile": profile
-    })
+        return jsonify({
+            "message": "Profile saved successfully",
+            "profile": profile
+        })
+
+    except Exception as e:
+        print("ERROR IN POST /api/profiles")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
