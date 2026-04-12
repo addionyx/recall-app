@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+recall_app.db
+data/profiles/
