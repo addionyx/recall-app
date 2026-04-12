@@ -5,6 +5,7 @@ from datetime import datetime
 from database import init_db, get_connection
 
 app = Flask(__name__)
+init_db()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FOODS_FILE = os.path.join(BASE_DIR, "data", "food_list.csv")
@@ -299,5 +300,4 @@ def save_profile():
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
