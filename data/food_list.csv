@@ -1,0 +1,5 @@
+food_id,name,unit,weight_g,calories,carbs,protein,fat,fiber,sugar,sodium
+1,Dosa,piece,100,168,28,4,4,2,1,210
+2,Idli,piece,40,58,12,2,0.4,1,0.2,75
+3,Rice,cup,158,205,45,4.2,0.4,0.6,0.1,1
+4,Upma,bowl,180,250,40,6,7,3,2,320

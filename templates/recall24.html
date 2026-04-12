@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>24 Hour Recall</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      max-width: 1200px;
+      background: #f8f9fb;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .top-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+    }
+
+    .top-form div {
+      margin-bottom: 12px;
+    }
+
+    .top-form label {
+      font-weight: bold;
+      display: inline-block;
+      width: 160px;
+    }
+
+    .top-form input {
+      padding: 8px 10px;
+      width: 280px;
+      font-size: 15px;
+    }
+
+    .meal-section {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .meal-section h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .dish-row {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fcfcfc;
+    }
+
+    .dish-grid {
+      display: grid;
+      grid-template-columns: 120px 280px 120px 1fr 100px;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .dish-grid label {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .dish-grid input,
+    .dish-grid select,
+    .dish-grid button {
+      padding: 8px 10px;
+      font-size: 15px;
+    }
+
+    .dish-search-wrapper {
+      position: relative;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #ccc;
+      max-height: 180px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    .suggestion-item:hover {
+      background: #f2f2f2;
+    }
+
+    .preview-box {
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      min-height: 70px;
+    }
+
+    .meal-actions {
+      margin-top: 10px;
+    }
+
+    .add-btn,
+    .save-btn,
+    .remove-btn {
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+    }
+
+    #entriesList {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .entry-card {
+      margin-bottom: 35px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .entry-card:last-child {
+      border-bottom: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      background: white;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>24 Hour Recall</h1>
+
+  <div class="top-form">
+    <div>
+      <label for="personName">Person Name:</label>
+      <input type="text" id="personName" placeholder="Enter person name">
+    </div>
+
+    <div>
+      <label for="dateOfBirth">Date of Birth:</label>
+      <input type="date" id="dateOfBirth">
+    </div>
+
+    <div>
+      <label for="recallDate">Recall Date:</label>
+      <input type="date" id="recallDate">
+    </div>
+  </div>
+
+  <div id="mealSections"></div>
+
+  <button class="save-btn" id="saveAllBtn">Save Full Profile</button>
+
+  <h2>Saved Profiles</h2>
+  <div id="entriesList">No entries yet.</div>
+
+  <script src="/static/recall24.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+person_name,date,meal_time,dish_name,quantity,unit,calories,carbs,protein,fat,fiber,sugar,sodium
+yogesh ok,2026-04-12,Breakfast,Dosa,1.0,piece,168.0,28.0,4.0,4.0,2.0,1.0,210.0
+Yogesh,2026-04-12,Early Morning,Idli,2.0,piece,116.0,24.0,4.0,0.8,2.0,0.4,150.0
+Yogesh,2026-04-12,Early Morning,Dosa,2.0,piece,336.0,56.0,8.0,8.0,4.0,2.0,420.0
+Yogesh,2026-04-12,Breakfast,Dosa,1.0,piece,168.0,28.0,4.0,4.0,2.0,1.0,210.0
+Yogesh,2026-04-12,Mid Day Snack,Rice,1.0,cup,205.0,45.0,4.2,0.4,0.6,0.1,1.0
+Yogesh,2026-04-12,Lunch,Rice,1.0,cup,205.0,45.0,4.2,0.4,0.6,0.1,1.0
