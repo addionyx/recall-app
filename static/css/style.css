@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #222;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.app-header {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.app-title {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.app-subtitle {
+  color: #666;
+  margin-bottom: 14px;
+}
+
+.top-nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  background: #e7eefc;
+  color: #0d47a1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.page-card {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.page-header h2 {
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 16px;
+}
+
+.field-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.read-only-box {
+  padding: 10px;
+  background: #f0f2f6;
+  border-radius: 8px;
+  min-height: 42px;
+}
+
+.inline-actions,
+.page-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  text-decoration: none;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-primary {
+  background: #1976d2;
+  color: white;
+}
+
+.btn-secondary {
+  background: #e0e0e0;
+  color: #222;
+}
+
+.list-section {
+  margin-top: 28px;
+}
+
+.section-head {
+  margin-bottom: 12px;
+}
+
+.section-head h3 {
+  margin-bottom: 4px;
+}
+
+.section-head p {
+  color: #666;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.app-table th,
+.app-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.app-table th {
+  background: #f1f4f8;
+}
+
+.empty-state {
+  text-align: center;
+  color: #777;
+}
+
+.suggestions-box {
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #eef5ff;
+}

@@ -2,197 +2,264 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>24 Hour Recall</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      max-width: 1200px;
-      background: #f8f9fb;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    .top-form {
-      background: white;
+    .recall-page {
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
     }
 
-    .top-form div {
-      margin-bottom: 12px;
-    }
-
-    .top-form label {
-      font-weight: bold;
-      display: inline-block;
-      width: 160px;
-    }
-
-    .top-form input {
-      padding: 8px 10px;
-      width: 280px;
-      font-size: 15px;
+    .page-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     .meal-section {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
       margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .meal-section h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
+    .meal-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
-    .dish-row {
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background: #fcfcfc;
-    }
-
-    .dish-grid {
+    .meal-grid {
       display: grid;
-      grid-template-columns: 120px 280px 120px 1fr 100px;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
       gap: 12px;
       align-items: start;
     }
 
-    .dish-grid label {
-      font-weight: bold;
-      margin-top: 8px;
+    .field-group {
+      position: relative;
     }
 
-    .dish-grid input,
-    .dish-grid select,
-    .dish-grid button {
-      padding: 8px 10px;
+    .field-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .field-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cfcfcf;
+      border-radius: 8px;
       font-size: 15px;
     }
 
-    .dish-search-wrapper {
-      position: relative;
+    .readonly-box {
+      background: #f3f4f6;
+      padding: 10px 12px;
+      border-radius: 8px;
+      min-height: 42px;
+      border: 1px solid #e0e0e0;
     }
 
     .suggestions {
       position: absolute;
-      top: 40px;
+      top: 100%;
       left: 0;
       right: 0;
-      background: white;
-      border: 1px solid #ccc;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-top: none;
+      z-index: 10;
       max-height: 180px;
       overflow-y: auto;
-      z-index: 1000;
-      display: none;
+      border-radius: 0 0 8px 8px;
     }
 
     .suggestion-item {
-      padding: 10px;
+      padding: 10px 12px;
       cursor: pointer;
-      border-bottom: 1px solid #eee;
     }
 
     .suggestion-item:hover {
-      background: #f2f2f2;
-    }
-
-    .preview-box {
-      background: #f7f7f7;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 10px;
-      min-height: 70px;
+      background: #eef5ff;
     }
 
     .meal-actions {
-      margin-top: 10px;
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .add-btn,
-    .save-btn,
-    .remove-btn {
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 16px;
+    .meal-table-wrap {
+      margin-top: 16px;
+      overflow-x: auto;
     }
 
-    #entriesList {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-
-    .entry-card {
-      margin-bottom: 35px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #ddd;
-    }
-
-    .entry-card:last-child {
-      border-bottom: none;
-    }
-
-    table {
+    .meal-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 16px;
-      background: white;
     }
 
-    table, th, td {
-      border: 1px solid #ccc;
-    }
-
-    th, td {
-      padding: 8px;
+    .meal-table th,
+    .meal-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
       text-align: left;
+      vertical-align: top;
     }
 
-    th {
-      background: #f2f2f2;
+    .meal-table th {
+      background: #f1f4f8;
+    }
+
+    .summary-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-top: 24px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .summary-item {
+      background: #f7f8fa;
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .nav-btn {
+      text-decoration: none;
+      background: #1976d2;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .empty-row {
+      color: #777;
+      text-align: center;
+    }
+
+    .delete-btn, .add-btn, .clear-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .add-btn {
+      background: #1976d2;
+      color: #fff;
+    }
+
+    .clear-btn {
+      background: #e0e0e0;
+      color: #222;
+    }
+
+    .delete-btn {
+      background: #ef5350;
+      color: #fff;
+    }
+
+    @media (max-width: 1200px) {
+      .meal-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <h1>24 Hour Recall</h1>
-
-  <div class="top-form">
-    <div>
-      <label for="personName">Person Name:</label>
-      <input type="text" id="personName" placeholder="Enter person name">
+  <div class="recall-page">
+    <div class="page-top">
+      <div>
+        <h1>24 Hour Recall</h1>
+        <p>Enter dishes meal-wise and auto-calculate nutrients.</p>
+      </div>
+      <a href="{{ url_for('weekly_frequency') }}" class="nav-btn">Next Page</a>
     </div>
 
-    <div>
-      <label for="dateOfBirth">Date of Birth:</label>
-      <input type="date" id="dateOfBirth">
-    </div>
+    <div id="meal-sections"></div>
 
-    <div>
-      <label for="recallDate">Recall Date:</label>
-      <input type="date" id="recallDate">
+    <div class="summary-card">
+      <h2>Daily Total Nutrients</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-label">Calories</div>
+          <div class="summary-value" id="total-calories">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Carbs (g)</div>
+          <div class="summary-value" id="total-carbs">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Protein (g)</div>
+          <div class="summary-value" id="total-protein">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Fat (g)</div>
+          <div class="summary-value" id="total-fat">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Fiber (g)</div>
+          <div class="summary-value" id="total-fiber">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Sugar (g)</div>
+          <div class="summary-value" id="total-sugar">0</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Sodium (mg)</div>
+          <div class="summary-value" id="total-sodium">0</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div id="mealSections"></div>
-
-  <button class="save-btn" id="saveAllBtn">Save Full Profile</button>
-
-  <h2>Saved Profiles</h2>
-  <div id="entriesList">No entries yet.</div>
-
-  <script src="/static/recall24.js"></script>
+  <script>
+    window.DISHES = {{ dishes | tojson }};
+    window.MEALS = [
+      "Early Morning",
+      "Breakfast",
+      "Mid Morning",
+      "Lunch",
+      "Evening",
+      "Dinner",
+      "Post Dinner"
+    ];
+  </script>
+  <script src="{{ url_for('static', filename='js/recall24.js') }}"></script>
 </body>
 </html>
